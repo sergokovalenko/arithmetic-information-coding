@@ -24,7 +24,7 @@ function countFrequency(obj, count) {
 	return newObj;
 }
 
-function getSortedArray(freqObj) {  
+function getSortedArray(freqObj) {
 	const result = [];
 	const keys = Object.keys(newObj);
 
@@ -36,4 +36,23 @@ function getSortedArray(freqObj) {
 	});
 
 	result.sort((a, b) => a.frequency > b.frequency);
+}
+
+function buildIntervals(arr) {
+	const newArr = arr.reduce((acc, el) => {
+		acc.push(Object.assign({}, el));
+		return acc;
+	}, []);
+	newArr[0].from = 0;
+	newArr[0].to = newArr[0].frequency;
+
+	for (let i = 1; i < newArr.length; i++) {
+		const prevInd = i - 1;
+		newArr[i].from = newArr[prevInd].to;
+		newArr[i].to = newArr[i].frequency + newArr[prevInd].frequency;
+	}
+
+	newArr[newArr.length].to = 1;
+
+	return newArr;
 }
