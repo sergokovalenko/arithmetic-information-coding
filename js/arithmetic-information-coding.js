@@ -43,16 +43,37 @@ function buildIntervals(arr) {
 		acc.push(Object.assign({}, el));
 		return acc;
 	}, []);
-	newArr[0].from = 0;
-	newArr[0].to = newArr[0].frequency;
+	newArr[0].low = 0;
+	newArr[0].high = newArr[0].frequency;
 
 	for (let i = 1; i < newArr.length; i++) {
 		const prevInd = i - 1;
-		newArr[i].from = newArr[prevInd].to;
-		newArr[i].to = newArr[i].frequency + newArr[prevInd].frequency;
+		newArr[i].low = newArr[prevInd].high;
+		newArr[i].high = newArr[i].frequency + newArr[prevInd].frequency;
 	}
 
-	newArr[newArr.length].to = 1;
+	newArr[newArr.length].high = 1;
 
 	return newArr;
+}
+
+function getWorkingInteval(intervals, str) {
+	const interval = {};
+	const char = intervals.find((el) => {
+		el.char = str[0];
+	});
+
+	interval.low = char.low
+	interval.high = char.high;
+
+	for (let i = 1; i < str.length; i++) {
+		const char = intervals.find((el) => {
+			el.char = str[i];
+		});
+
+		interval.low = interval.low + (interval.high - interval.low) * el.low;
+		interval.high = interval.low + (interval.high - interval.high) * el.high;
+	}
+
+	return interval;
 }
