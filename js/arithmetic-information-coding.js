@@ -1,15 +1,11 @@
 export function getResult(value) {
-	console.log(value);
 	const occurrence = countOccurrence(value);
-	console.log(occurrence);
 	const frequency = countFrequency(occurrence, value.length);
-	console.log(frequency);
 	const arr = getSortedArray(frequency);
-	console.log(arr);
 	const intervals = buildIntervals(arr);
-	console.log(intervals);
 	const finalInterval = getWorkingInterval(intervals, value);
-	console.log(finalInterval);
+	const dr = +finalInterval.low.toString().slice(2);
+	return dr.toString(2);
 }
 
 function countOccurrence(val) {

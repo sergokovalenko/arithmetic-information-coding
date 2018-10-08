@@ -1,7 +1,12 @@
 import * as algorithm from './arithmetic-information-coding.js';
 
 window.onload = () => {
-  const inputString = 'ЭТОТ_МЕТОД_ЛУЧШЕ_ХАФФМАНА';
+  const input = document.getElementById('message');
+  const btn = document.getElementById('submit');
+  const resultBlock = document.getElementById('result')
 
-  algorithm.getResult(inputString);
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    resultBlock.innerHTML = algorithm.getResult(input.value);
+  })
 };
